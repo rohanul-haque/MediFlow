@@ -5,7 +5,7 @@
  */
 
 /**
- * Node.js Modules
+ * Node.js Module
  */
 import dns from "dns";
 
@@ -21,7 +21,7 @@ import config from "@/config";
 import { logger } from "./winston";
 
 /**
- * Types
+ * Type
  */
 import type { ConnectOptions } from "mongoose";
 

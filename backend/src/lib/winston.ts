@@ -5,7 +5,7 @@
  */
 
 /**
- * Third-Party Modules
+ * Third-Party Module
  */
 import winston from "winston";
 

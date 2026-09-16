@@ -1,7 +1,6 @@
 /**
  * @copyright 2026
  * @author Rohanul Haque Rohan - MERN Stack Developer
- * @author Fardin Islam Selim - MERN Stack Developer
  * @license Apache-2.0
  */
 
@@ -30,7 +29,7 @@ import globalErrorHandler from "@/middlewares/globalErrorHandler";
 import notFoundRoute from "@/middlewares/notFoundRoute";
 
 /**
- * Routes
+ * Route
  */
 import v1Routes from "@/routes/v1";
 
@@ -40,7 +39,11 @@ import v1Routes from "@/routes/v1";
 const app = express();
 
 /**
- * Security Middleware
+ * Security Middlewares
+ */
+
+/**
+ * Helmet Middleware for Cross Site Scripting (XSS) attacks and other security headers
  */
 app.use(
   helmet({
@@ -49,12 +52,12 @@ app.use(
 );
 
 /**
- * Enable CORS
+ * CORS Middleware for Cross-Origin Resource Sharing
  */
 app.use(cors(corsOptions));
 
 /**
- * Response Compression
+ * Response Compression Middleware
  */
 app.use(
   compression({
@@ -63,7 +66,7 @@ app.use(
 );
 
 /**
- * Body Parser
+ * JSON Body Parser Middleware for handling JSON payloads
  */
 app.use(
   express.json({
@@ -71,6 +74,9 @@ app.use(
   }),
 );
 
+/**
+ * URL-encoded Body Parser Middleware for handling URL-encoded payloads
+ */
 app.use(
   express.urlencoded({
     extended: true,
@@ -79,27 +85,27 @@ app.use(
 );
 
 /**
- * Cookie Parser
+ * Cookie Parser Middleware for handling cookies
  */
 app.use(cookieParser());
 
 /**
- * Rate Limiter
+ * Rate Limiter Middleware for limiting the number of requests
  */
 app.use(limiter);
 
 /**
- * API Routes
+ * API Route
  */
 app.use("/api/v1", v1Routes);
 
 /**
- * Route Not Found
+ * Route Not Found Middleware for handling 404 errors
  */
 app.use(notFoundRoute);
 
 /**
- * Global Error Handler
+ * Global Error Handler Middleware for handling errors
  */
 app.use(globalErrorHandler);
 

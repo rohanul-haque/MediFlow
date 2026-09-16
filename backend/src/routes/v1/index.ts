@@ -10,6 +10,11 @@
 import express from "express";
 
 /**
+ * API Routes
+ */
+import authRoute from "@/routes/v1/auth";
+
+/**
  * API Controller
  */
 import healthRoute from "@/routes/v1/health";
@@ -23,5 +28,6 @@ const router = express.Router();
  * Mounting routes
  */
 router.use("/health", healthRoute);
+router.use("/auth", authRoute);
 
 export default router;

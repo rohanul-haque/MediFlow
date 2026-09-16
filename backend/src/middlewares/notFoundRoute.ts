@@ -16,8 +16,9 @@ import type { Request, Response } from "express";
 
 /**
  * Not Found Error Handler Middleware
- * @param req
- * @param res
+ * @param req - The request object
+ * @param res - The response object
+ *
  */
 const notFoundRoute = (req: Request, res: Response): void => {
   res.status(HTTP_STATUS.NOT_FOUND).json({
