@@ -19,9 +19,12 @@ import validationError from "@/middlewares/validationError";
 /**
  * API Controllers
  */
+import forgetPasswordController from "@/controllers/v1/auth/forgotPassword.controller";
 import loginController from "@/controllers/v1/auth/login.controller";
 import logoutController from "@/controllers/v1/auth/logout.controller";
+import resetPasswordController from "@/controllers/v1/auth/resetPassword.controller";
 import signupController from "@/controllers/v1/auth/signup.controller";
+import verifyForgotPasswordOtpController from "@/controllers/v1/auth/verifyForgotPasswordOtp.controller";
 import getMeController from "@/controllers/v1/user/getMe.controller";
 
 /**
@@ -99,5 +102,81 @@ router.post("/logout", authenticate, logoutController);
  * @route - /api/v1/auth/me
  */
 router.get("/me", authenticate, getMeController);
+
+/**
+ * User Password Reset Route
+ * @access - private
+ * @method - GET
+ * @route - /api/v1/auth/forget-password
+ */
+router.post(
+  "/forget-password",
+
+  body("email")
+    .notEmpty()
+    .withMessage("Email is Required")
+    .isEmail()
+    .withMessage("Email must be a valid email address"),
+
+  validationError,
+  forgetPasswordController,
+);
+
+/**
+ * User Verify Forgot Password Otp Route
+ * @access - private
+ * @method - POST
+ * @route - /api/v1/auth/verify-otp
+ */
+router.post(
+  "/verify-otp",
+
+  body("email")
+    .notEmpty()
+    .withMessage("Email is Required")
+    .isEmail()
+    .withMessage("Email must be a valid email address"),
+  body("otp")
+    .notEmpty()
+    .withMessage("OTP is Required")
+    .isString()
+    .withMessage("OTP must be a string")
+    .isLength({ min: 6, max: 6 })
+    .withMessage("OTP must be 6 digits"),
+
+  validationError,
+  verifyForgotPasswordOtpController,
+);
+
+/**
+ * User Reset Password Route
+ * @access - private
+ * @method - POST
+ * @route - /api/v1/auth/reset-password
+ */
+router.patch(
+  "/reset-password",
+
+  body("email")
+    .notEmpty()
+    .withMessage("Email is Required")
+    .isEmail()
+    .withMessage("Email must be a valid email address"),
+  body("otp")
+    .notEmpty()
+    .withMessage("OTP is Required")
+    .isString()
+    .withMessage("OTP must be a string")
+    .isLength({ min: 6, max: 6 })
+    .withMessage("OTP must be 6 digits"),
+  body("newPassword")
+    .notEmpty()
+    .withMessage("New Password is Required")
+    .isLength({ min: 7 })
+    .withMessage("Password must be at least 7 characters long"),
+
+  validationError,
+  resetPasswordController,
+);
 
 export default router;

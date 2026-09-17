@@ -23,3 +23,26 @@ export type SignupPayload = Pick<
  * @param { IUser } IUser - The interface of the user model
  */
 export type LoginPayload = Pick<IUser, "email" | "password">;
+
+/**
+ * Type for forget password payload
+ * @param { IUser } IUser - The interface of the user model
+ */
+export type forgetPasswordPayload = Pick<IUser, "email">;
+
+/**
+ * Type for verify forgot password otp payload
+ * @param { IUser } IUser - The interface of the user model
+ */
+export type VerifyForgotPasswordOtp = Pick<IUser, "email"> & {
+  otp: string;
+};
+
+/**
+ * Type for reset password payload
+ * @param { IUser } IUser - The interface of the user model
+ */
+export type ResetPasswordPayload = Pick<IUser, "email"> & {
+  otp: string;
+  newPassword: string;
+};
