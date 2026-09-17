@@ -13,11 +13,14 @@ import { body } from "express-validator";
 /**
  * Application Middlewares
  */
+import authenticate from "@/middlewares/authenticate";
 import validationError from "@/middlewares/validationError";
 
 /**
  * API Controllers
  */
+import loginController from "@/controllers/v1/auth/login.controller";
+import logoutController from "@/controllers/v1/auth/logout.controller";
 import signupController from "@/controllers/v1/auth/signup.controller";
 
 /**
@@ -59,5 +62,33 @@ router.post(
   validationError,
   signupController,
 );
+
+/**
+ * User login Route
+ * @access - public
+ * @method - POST
+ * @route - /api/v1/auth/login
+ */
+router.post(
+  "/login",
+
+  body("email")
+    .notEmpty()
+    .withMessage("Email is Required")
+    .isEmail()
+    .withMessage("Email must be a valid email address"),
+  body("password").notEmpty().withMessage("Password is Required"),
+
+  validationError,
+  loginController,
+);
+
+/**
+ * User logout Route
+ * @access - public
+ * @method - POST
+ * @route - /api/v1/auth/logout
+ */
+router.post("/logout", authenticate, logoutController);
 
 export default router;

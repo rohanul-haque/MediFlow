@@ -22,8 +22,8 @@ import User from "@/models/User";
 /**
  * Types
  */
-import { SignupPayload } from "@/types/payload";
-import { AuthResponse } from "@/types/response";
+import { SignupPayload } from "@/types/payload.type";
+import { AuthResponse } from "@/types/response.type";
 import welcomeEmailTemplate from "@/utils/welcomeEmailTemplate";
 
 /**
