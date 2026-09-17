@@ -21,3 +21,16 @@ export interface AuthResponse {
   accessToken: string;
   refreshToken: string;
 }
+
+/**
+ * Type for user response
+ * @param { string } fullName - The full name of the user
+ * @param { string } email - The email of the user
+ * @param { string } role - The role of the user
+ */
+export interface UserProfileResponse {
+  _id: string;
+  fullName: string;
+  email: string;
+  role: string;
+}

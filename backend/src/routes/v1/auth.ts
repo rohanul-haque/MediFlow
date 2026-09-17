@@ -22,6 +22,7 @@ import validationError from "@/middlewares/validationError";
 import loginController from "@/controllers/v1/auth/login.controller";
 import logoutController from "@/controllers/v1/auth/logout.controller";
 import signupController from "@/controllers/v1/auth/signup.controller";
+import getMeController from "@/controllers/v1/user/getMe.controller";
 
 /**
  * Express Router Initialization
@@ -90,5 +91,13 @@ router.post(
  * @route - /api/v1/auth/logout
  */
 router.post("/logout", authenticate, logoutController);
+
+/**
+ * User Profile Route
+ * @access - private
+ * @method - GET
+ * @route - /api/v1/auth/me
+ */
+router.get("/me", authenticate, getMeController);
 
 export default router;
