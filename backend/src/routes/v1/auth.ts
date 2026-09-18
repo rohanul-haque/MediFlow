@@ -8,7 +8,7 @@
  * Third-Party Modules
  */
 import express from "express";
-import { body } from "express-validator";
+import { body, cookie } from "express-validator";
 
 /**
  * Application Middlewares
@@ -26,6 +26,7 @@ import resetPasswordController from "@/controllers/v1/auth/resetPassword.control
 import signupController from "@/controllers/v1/auth/signup.controller";
 import verifyForgotPasswordOtpController from "@/controllers/v1/auth/verifyForgotPasswordOtp.controller";
 import getMeController from "@/controllers/v1/user/getMe.controller";
+import refreshTokenController from "@/controllers/v1/auth/refreshToken.controller";
 
 /**
  * Express Router Initialization
@@ -177,6 +178,25 @@ router.patch(
 
   validationError,
   resetPasswordController,
+);
+
+/**
+ * User Reset Password Route
+ * @access - private
+ * @method - GET
+ * @route - /api/v1/auth/refresh-token
+ */
+router.get(
+  "/refresh-token",
+
+  cookie("refreshToken")
+    .notEmpty()
+    .withMessage("Refresh token is required")
+    .isJWT()
+    .withMessage("Invalid refresh token"),
+
+  validationError,
+  refreshTokenController,
 );
 
 export default router;

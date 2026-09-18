@@ -18,7 +18,7 @@ import config from "@/config";
  * Types
  */
 import type mongoose from "mongoose";
-type MongoId = mongoose.Types.ObjectId;
+export type MongoId = mongoose.Types.ObjectId;
 
 /**
  * Generate User Access Token
