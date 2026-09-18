@@ -34,3 +34,11 @@ export interface UserProfileResponse {
   email: string;
   role: string;
 }
+
+/**
+ * Type for forgot password response
+ * @param { string } otp - The OTP sent to the user
+ */
+export interface ForgotPasswordResponse {
+  otp: string;
+}

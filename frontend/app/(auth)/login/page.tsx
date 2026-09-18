@@ -13,6 +13,7 @@ import Link from "next/link";
 /**
  * Components
  */
+import LoginForm from "@/components/forms/LoginForm";
 import {
   Card,
   CardContent,
@@ -27,28 +28,13 @@ import {
 import login_illustration from "@/assets/login.svg";
 
 /**
- * Form
- */
-import LoginForm from "@/components/forms/LoginForm";
-
-/**
  * Signup Page
  */
 const SignupPage = () => {
   return (
     <div className="m-4 flex min-h-screen items-center justify-center">
       <Card className="grid w-full max-w-4xl md:grid-cols-2">
-        {/* Illustration */}
-        <div className="-m-4 hidden items-center justify-center bg-gray-100 md:flex dark:bg-gray-800">
-          <Image
-            src={login_illustration}
-            alt="Login Illustration"
-            className="h-auto w-full max-w-xs object-cover"
-            priority
-          />
-        </div>
-
-        {/* Login Form */}
+        {/* =================== Login Form ====================== */}
         <div className="p-6">
           <CardHeader className="px-0">
             <CardTitle className="text-2xl font-bold">
@@ -64,16 +50,26 @@ const SignupPage = () => {
             <LoginForm />
           </CardContent>
 
-          {/* Login */}
+          {/* ================== Create Account Link ====================== */}
           <p className="mt-6 text-center text-sm text-gray-500">
             You don't have an account?{" "}
             <Link
               href="/signup"
               className="font-medium text-blue-500 hover:underline"
             >
-              Login
+              Create an account
             </Link>
           </p>
+        </div>
+
+        {/* ==================== Illustration ==================== */}
+        <div className="-m-4 hidden items-center justify-center bg-gray-100 md:flex dark:bg-gray-800">
+          <Image
+            src={login_illustration}
+            alt="Login Illustration"
+            className="h-auto w-full max-w-xs object-cover"
+            priority
+          />
         </div>
       </Card>
     </div>

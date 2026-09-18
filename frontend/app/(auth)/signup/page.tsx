@@ -34,7 +34,7 @@ const SignupPage = () => {
   return (
     <div className="m-4 flex min-h-screen items-center justify-center">
       <Card className="grid w-full max-w-4xl md:grid-cols-2">
-        {/* Illustration */}
+        {/* ================== Illustration ===================== */}
         <div className="-m-4 hidden items-center justify-center bg-gray-100 md:flex dark:bg-gray-800">
           <Image
             src={signup_illustration}
@@ -44,7 +44,7 @@ const SignupPage = () => {
           />
         </div>
 
-        {/* Signup Form */}
+        {/* ===================== Signup Form ===================== */}
         <div className="p-6">
           <CardHeader className="px-0">
             <CardTitle className="text-2xl font-bold">
@@ -61,7 +61,7 @@ const SignupPage = () => {
             <SignupForm />
           </CardContent>
 
-          {/* Login */}
+          {/* ================== Login Link ===================== */}
           <p className="mt-6 text-center text-sm text-gray-500">
             You already have an account?{" "}
             <Link

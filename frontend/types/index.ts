@@ -19,6 +19,13 @@ export interface AuthResponse {
 }
 
 /**
+ * Forgot Password Response
+ */
+export interface ForgotPassworResponse {
+  otp: string;
+}
+
+/**
  * Error Codes
  */
 export type ErrorCode =

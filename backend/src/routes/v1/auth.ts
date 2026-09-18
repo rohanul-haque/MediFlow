@@ -106,8 +106,8 @@ router.get("/me", authenticate, getMeController);
 
 /**
  * User Password Reset Route
- * @access - private
- * @method - GET
+ * @access - public
+ * @method - POST
  * @route - /api/v1/auth/forget-password
  */
 router.post(
@@ -125,7 +125,7 @@ router.post(
 
 /**
  * User Verify Forgot Password Otp Route
- * @access - private
+ * @access - public
  * @method - POST
  * @route - /api/v1/auth/verify-otp
  */

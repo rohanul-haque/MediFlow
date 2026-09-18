@@ -27,13 +27,16 @@ import type { Request, Response } from "express";
 const forgetPasswordController = asyncHandler(
   async (req: Request, res: Response) => {
     // Call forget password service
-    await forgetPasswordService(req.body);
+    const result = await forgetPasswordService(req.body);
 
     // Send response
     sendResponse(res, {
       success: true,
       statusCode: HTTP_STATUS.OK,
       message: "Reset password OTP sent successfully",
+      data: {
+        otp: result.otp,
+      },
     });
   },
 );

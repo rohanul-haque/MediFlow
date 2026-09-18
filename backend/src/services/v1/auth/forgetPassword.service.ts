@@ -23,15 +23,16 @@ import User from "@/models/User";
  * Type
  */
 import type { forgetPasswordPayload } from "@/types/payload.type";
+import type { ForgotPasswordResponse } from "@/types/response.type";
 
 /**
  * Service for user forgot password.
  * @param {forgetPasswordPayload} payload
- * @returns {Promise<void>}
+ * @returns {Promise<ForgotPasswordResponse>}
  */
 const forgetPasswordService = async (
   payload: forgetPasswordPayload,
-): Promise<void> => {
+): Promise<ForgotPasswordResponse> => {
   // Destructure payload
   const { email } = payload;
 
@@ -75,6 +76,8 @@ const forgetPasswordService = async (
   logger.info("Password reset OTP sent successfully", {
     email: user.email,
   });
+
+  return { otp };
 };
 
 export default forgetPasswordService;

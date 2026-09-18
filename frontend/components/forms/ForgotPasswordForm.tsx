@@ -7,9 +7,8 @@
  */
 
 /**
- * Next.js Modules
+ * Next.js Module
  */
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 /**
@@ -24,7 +23,7 @@ import { z } from "zod";
 /**
  * API
  */
-import { login } from "@/lib/api";
+import { forgotPassword } from "@/lib/api";
 
 /**
  * Components
@@ -51,7 +50,7 @@ import type { AxiosError } from "axios";
 /**
  * Icon
  */
-import { Lock, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 
 /**
  * Login Form Schema
@@ -62,60 +61,44 @@ const formSchema = z.object({
     .trim()
     .min(1, "Email is required")
     .email("Please enter a valid email address"),
-
-  password: z.string().min(1, "Password is required"),
 });
 
 /**
  * Login Form Type
  */
-export type LoginFormValues = z.infer<typeof formSchema>;
+export type ForgotPasswordFormValues = z.infer<typeof formSchema>;
 
 /**
- * LoginForm Component
+ * Forgot Password Form Component
  */
-const LoginForm = () => {
+const ForgotPasswordForm = () => {
   // React Hook Form
-  const form = useForm<LoginFormValues>({
+  const form = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
   // Router Hook
   const router = useRouter();
 
-  // Login Mutation
+  // Forgot Password Mutation
   const { mutate, isPending } = useMutation({
-    mutationFn: login, // Login mutation API Call
+    mutationFn: forgotPassword, // Forgot Password mutation API Call
 
-    mutationKey: ["auth", "login"], //  Mutation Key
+    mutationKey: ["auth", "forgot-password"], //  Mutation Key
 
     retry: false, // No Retry on Error
 
-    // On Success
     onSuccess: (response) => {
-      toast.success(response?.message);
+      toast.success(response.message);
 
-      // Redirect user based on role
-      switch (response.data?.role) {
-        case "admin":
-          router.push("/dashboard/admin");
-          break;
-        case "doctor":
-          router.push("/dashboard/doctor");
-          break;
-        case "patient":
-          router.push("/dashboard/patient");
-          break;
-        default:
-          router.push("/");
-      }
+      // Redirect user to verify OTP page
+      router.push(`/verify-otp?email=${form.getValues("email")}`);
     },
 
-    onError: (error: AxiosError<ValidationError | ErrorResponse>) => {
+    onError: (error: AxiosError<ErrorResponse | ValidationError>) => {
       const errorData = error.response?.data;
 
       // Network or Unknown Error
@@ -139,7 +122,7 @@ const LoginForm = () => {
   });
 
   // Submit Handler
-  const onSubmit = (values: LoginFormValues) => {
+  const onSubmit = (values: ForgotPasswordFormValues) => {
     mutate(values);
   };
 
@@ -161,47 +144,10 @@ const LoginForm = () => {
                   placeholder="you@example.com"
                   autoComplete="email"
                   aria-invalid={fieldState.invalid}
-                  disabled={isPending}
                 />
 
                 <InputGroupAddon>
                   <Mail size={18} />
-                </InputGroupAddon>
-              </InputGroup>
-
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-
-        {/* ==================== Password ==================== */}
-        <Controller
-          name="password"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <div className="flex items-center justify-between">
-                <FieldLabel>Password</FieldLabel>
-                <Link
-                  href={"/forgot-password"}
-                  className="text-sm font-medium text-blue-500 hover:underline"
-                >
-                  Forgot Password?
-                </Link>
-              </div>
-
-              <InputGroup>
-                <InputGroupInput
-                  {...field}
-                  type="password"
-                  placeholder="••••••••"
-                  autoComplete="current-password"
-                  aria-invalid={fieldState.invalid}
-                  disabled={isPending}
-                />
-
-                <InputGroupAddon>
-                  <Lock size={18} />
                 </InputGroupAddon>
               </InputGroup>
 
@@ -214,13 +160,13 @@ const LoginForm = () => {
       {/* ==================== Submit ==================== */}
       <Button
         type="submit"
-        disabled={isPending}
         className="w-full bg-blue-500 py-4.5 text-sm font-medium transition-colors hover:bg-blue-600"
+        disabled={isPending}
       >
-        {isPending ? "Logging in..." : "Login"}
+        {isPending ? "Sending..." : "Send Reset Password OTP"}
       </Button>
     </form>
   );
 };
 
-export default LoginForm;
+export default ForgotPasswordForm;
