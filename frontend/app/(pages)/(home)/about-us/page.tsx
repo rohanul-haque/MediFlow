@@ -13,6 +13,7 @@ import Image from "next/image";
  * Components
  */
 import Container from "@/components/home/Container";
+import Footer from "@/components/home/Footer";
 import Navbar from "@/components/home/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -66,7 +67,7 @@ const About = () => {
   return (
     <>
       <Navbar />
-      <section className="mt-20">
+      <section className="mt-20 py-16">
         <Container>
           {/* ================= Title Section ================= */}
           <h1 className="text-center text-xl leading-[1.1] md:text-2xl">
@@ -116,6 +117,7 @@ const About = () => {
           </div>
         </Container>
       </section>
+      <Footer />
     </>
   );
 };

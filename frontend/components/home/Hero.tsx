@@ -41,7 +41,7 @@ const HERO_CONTENT = {
 
 const Hero = () => {
   return (
-    <section className="mt-20">
+    <section className="mt-20 py-16">
       <Container>
         <div className="px-4 text-center sm:px-6">
           {/* ============= Hero Content ============= */}
