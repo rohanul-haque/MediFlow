@@ -33,7 +33,7 @@ const HERO_CONTENT = {
     "✓ Easy Appointment Booking",
     "✓ Secure Healthcare",
   ],
-};
+} as const;
 
 /**
  * Hero Section
@@ -41,7 +41,7 @@ const HERO_CONTENT = {
 
 const Hero = () => {
   return (
-    <section className="mt-36">
+    <section className="mt-20">
       <Container>
         <div className="px-4 text-center sm:px-6">
           {/* ============= Hero Content ============= */}
