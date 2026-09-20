@@ -98,8 +98,7 @@ const About = () => {
           {/* ======================= Why Choose Section ======================= */}
           <div className="mt-16">
             <h1 className="text-center text-xl leading-[1.1] md:text-2xl">
-              WHY CHOOSE{" "}
-              <span className="font-bold text-blue-600"> MEDIFLOW</span>
+              WHY CHOOSE <span className="font-bold text-blue-600"> US</span>
             </h1>
 
             <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
