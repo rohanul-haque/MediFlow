@@ -15,7 +15,7 @@ import { ERROR_CODE, HTTP_STATUS } from "@/utils/constants";
 /**
  * Type
  */
-import type { MongoId } from "@/lib/jwt";
+import type { MongoId } from "@/types/common.type";
 import type { Request, Response } from "express";
 
 /**

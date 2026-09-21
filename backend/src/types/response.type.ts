@@ -42,3 +42,4 @@ export interface UserProfileResponse {
 export interface ForgotPasswordResponse {
   otp: string;
 }
+

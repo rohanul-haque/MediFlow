@@ -15,10 +15,9 @@ import jwt, { type JwtPayload } from "jsonwebtoken";
 import config from "@/config";
 
 /**
- * Types
+ * Type
  */
-import type mongoose from "mongoose";
-export type MongoId = mongoose.Types.ObjectId;
+import type { MongoId } from "@/types/common.type";
 
 /**
  * Generate User Access Token
