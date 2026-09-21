@@ -7,7 +7,9 @@
 /**
  * Types
  */
+import { IDoctor } from "@/models/Doctor";
 import type { IUser } from "@/models/User";
+import { MongoId } from "./common.type";
 
 /**
  * Type for signup user payload
@@ -45,4 +47,35 @@ export type VerifyForgotPasswordOtp = Pick<IUser, "email"> & {
 export type ResetPasswordPayload = Pick<IUser, "email"> & {
   otp: string;
   newPassword: string;
+};
+
+/**
+ * Type for update doctor body
+ * @param { IDoctor } IDoctor - The interface of the doctor model
+ */
+export type UpdateDoctorBody = Partial<
+  Pick<
+    IDoctor,
+    | "specialization"
+    | "qualification"
+    | "experience"
+    | "consultationFee"
+    | "availableSlots"
+    | "bio"
+  >
+> & {
+  fullName?: string;
+  password?: string;
+};
+
+/**
+ * Type for update doctor payload
+ * @param { MongoId } MongoId - The interface of the mongo id
+ * @param { UpdateDoctorBody } UpdateDoctorBody - The interface of the update doctor body
+ * @param { Express.Multer.File } Express.Multer.File - The interface of the express multer file
+ */
+export type UpdateDoctorPayload = {
+  userId: MongoId;
+  payload: UpdateDoctorBody;
+  file?: Express.Multer.File;
 };

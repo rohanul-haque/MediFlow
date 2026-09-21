@@ -13,6 +13,7 @@ import express from "express";
  * API Routes
  */
 import authRoute from "@/routes/v1/auth";
+import doctorRoute from "@/routes/v1/doctor";
 
 /**
  * API Controller
@@ -29,5 +30,6 @@ const router = express.Router();
  */
 router.use("/health", healthRoute);
 router.use("/auth", authRoute);
+router.use("/doctor", doctorRoute);
 
 export default router;

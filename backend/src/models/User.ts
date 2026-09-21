@@ -11,13 +11,18 @@ import bcrypt from "bcrypt";
 import { model, models, Schema } from "mongoose";
 
 /**
+ * Type
+ */
+import type { AuthRole } from "@/types/common.type";
+
+/**
  * User Interface Definition
  */
 export interface IUser {
   fullName: string;
   email: string;
   password: string;
-  role: "admin" | "doctor" | "patient";
+  role: AuthRole;
   resetOtp: string;
   resetOtpExpired: Date | null;
 }

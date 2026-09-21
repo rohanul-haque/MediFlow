@@ -15,8 +15,9 @@ import AppError from "@/utils/appError";
 import { ERROR_CODE, HTTP_STATUS } from "@/utils/constants";
 
 /**
- * Application Model
+ * Application Models
  */
+import Doctor from "@/models/Doctor";
 import User from "@/models/User";
 
 /**
@@ -70,6 +71,13 @@ const signupService = async (payload: SignupPayload): Promise<AuthResponse> => {
     password,
     role,
   });
+
+  // Create doctor profile if role is doctor
+  if (role === "doctor") {
+    await Doctor.create({
+      user: user?._id,
+    });
+  }
 
   // Send welcome email to the user
   await transporter.sendMail({

@@ -66,3 +66,8 @@ export interface AvailableSlot {
   day: WeekDay;
   slots: TimeSlot[];
 }
+
+/**
+ * auth role
+ */
+export type AuthRole = "admin" | "doctor" | "patient";
