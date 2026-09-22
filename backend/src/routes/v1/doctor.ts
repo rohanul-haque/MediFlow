@@ -11,17 +11,22 @@ import express from "express";
 import { body } from "express-validator";
 
 /**
+ * Application Module
+ */
+import fileUpload from "@/lib/fileUpload";
+
+/**
  * Application Middlewares
  */
+import authenticate from "@/middlewares/authenticate";
+import authorize from "@/middlewares/authorize";
 import validationError from "@/middlewares/validationError";
 
 /**
  * API Controllers
  */
+import currentDoctorController from "@/controllers/v1/doctor/currentDoctor.controller";
 import updateDoctorController from "@/controllers/v1/doctor/updateDoctor.controller";
-import { fileUpload } from "@/lib/fileUpload";
-import authenticate from "@/middlewares/authenticate";
-import authorize from "@/middlewares/authorize";
 
 /**
  * Express Router Initialization
@@ -67,6 +72,21 @@ router.patch(
 
   validationError,
   updateDoctorController,
+);
+
+/**
+ * Get Current Doctor Route
+ * @access - private
+ * @method - GET
+ * @route - /api/v1/doctor/current
+ */
+router.get(
+  "/current",
+
+  authenticate,
+  authorize(["doctor"]),
+
+  currentDoctorController,
 );
 
 export default router;

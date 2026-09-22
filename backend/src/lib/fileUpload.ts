@@ -19,9 +19,11 @@ const storage = multer.memoryStorage();
  * Multer configuration for file uploads
  * @param limits - Optional file size limits
  */
-export const fileUpload = multer({
+const fileUpload = multer({
   storage,
   limits: {
     fileSize: 5 * 1024 * 1024, // 5MB limit
   },
 });
+
+export default fileUpload;
