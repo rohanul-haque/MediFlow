@@ -26,6 +26,7 @@ import validationError from "@/middlewares/validationError";
  * API Controllers
  */
 import currentDoctorController from "@/controllers/v1/doctor/currentDoctor.controller";
+import deleteDoctorByIdController from "@/controllers/v1/doctor/deleteDoctorById.controller";
 import getDoctorByIdController from "@/controllers/v1/doctor/getDoctorById.controller";
 import updateDoctorController from "@/controllers/v1/doctor/updateDoctor.controller";
 
@@ -107,6 +108,28 @@ router.get(
 
   validationError,
   getDoctorByIdController,
+);
+
+/**
+ * Delete Doctor By ID Route
+ * @access - private
+ * @method - DELETE
+ * @route - /api/v1/doctor/:doctorId
+ */
+router.delete(
+  "/:doctorId",
+
+  authenticate,
+  authorize(["admin", "doctor"]),
+
+  param("doctorId")
+    .notEmpty()
+    .withMessage("Doctor ID is required")
+    .isMongoId()
+    .withMessage("Invalid Doctor ID"),
+
+  validationError,
+  deleteDoctorByIdController,
 );
 
 export default router;

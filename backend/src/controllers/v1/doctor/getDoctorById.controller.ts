@@ -4,21 +4,25 @@
  * @license Apache-2.0
  */
 
-import getDoctorByIdService from "@/services/v1/doctor/getDoctorById.service";
-import asyncHandler from "@/utils/asyncHandler";
+/**
+ * Thired-party Modules
+ */
 import mongoose from "mongoose";
 
 /**
  * Application Modules
  */
+import asyncHandler from "@/utils/asyncHandler";
 
 /**
  * Application Service
  */
+import getDoctorByIdService from "@/services/v1/doctor/getDoctorById.service";
 
 /**
  * Type
  */
+import { logger } from "@/lib/winston";
 import { HTTP_STATUS } from "@/utils/constants";
 import sendResponse from "@/utils/sendResponse";
 import type { Request, Response } from "express";
@@ -28,13 +32,20 @@ import type { Request, Response } from "express";
  */
 const getDoctorByIdController = asyncHandler(
   async (req: Request, res: Response) => {
+    // get doctor id from params
     const { doctorId } = req.params;
 
+    // call get doctor by id service
     const result = await getDoctorByIdService(
       new mongoose.Types.ObjectId(doctorId as string),
     );
 
-    // response
+    // Log the doctor get by id
+    logger.info("Doctor fetched successfully", {
+      doctorId,
+    });
+
+    // Send success response
     sendResponse(res, {
       success: true,
       statusCode: HTTP_STATUS.OK,

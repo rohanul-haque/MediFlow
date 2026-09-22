@@ -22,6 +22,11 @@ import Doctor from "@/models/Doctor";
 import { MongoId } from "@/types/common.type";
 import { DoctorResponse } from "@/types/response.type";
 
+/**
+ * Service for get doctor by id.
+ * @param { string } doctorId
+ * @returns { Promise<DoctorResponse> }
+ */
 const getDoctorByIdService = async (
   doctorId: MongoId,
 ): Promise<DoctorResponse> => {
