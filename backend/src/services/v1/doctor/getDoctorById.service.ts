@@ -17,21 +17,16 @@ import { ERROR_CODE, HTTP_STATUS } from "@/utils/constants";
 import Doctor from "@/models/Doctor";
 
 /**
- * Types
+ * Type
  */
-import type { MongoId } from "@/types/common.type";
-import type { DoctorResponse } from "@/types/response.type";
+import { MongoId } from "@/types/common.type";
+import { DoctorResponse } from "@/types/response.type";
 
-/**
- * Service for current doctor
- * @param { MongoId } userId - The ID of the user
- * @returns { Promise<DoctorResponse> }
- */
-const currentDoctorService = async (
-  userId: MongoId,
+const getDoctorByIdService = async (
+  doctorId: MongoId,
 ): Promise<DoctorResponse> => {
   // get the doctor
-  const doctor = await Doctor.findOne({ user: userId })
+  const doctor = await Doctor.findOne({ user: doctorId })
     .populate("user", "_id fullName email role")
     .lean()
     .exec();
@@ -39,7 +34,7 @@ const currentDoctorService = async (
   // check if doctor found
   if (!doctor) {
     logger.warn("Doctor not found!", {
-      userId,
+      doctorId,
     });
 
     throw new AppError(
@@ -53,4 +48,4 @@ const currentDoctorService = async (
   return doctor;
 };
 
-export default currentDoctorService;
+export default getDoctorByIdService;

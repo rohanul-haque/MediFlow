@@ -8,7 +8,7 @@
  * Third-Party Modules
  */
 import express from "express";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 /**
  * Application Module
@@ -26,6 +26,7 @@ import validationError from "@/middlewares/validationError";
  * API Controllers
  */
 import currentDoctorController from "@/controllers/v1/doctor/currentDoctor.controller";
+import getDoctorByIdController from "@/controllers/v1/doctor/getDoctorById.controller";
 import updateDoctorController from "@/controllers/v1/doctor/updateDoctor.controller";
 
 /**
@@ -87,6 +88,25 @@ router.get(
   authorize(["doctor"]),
 
   currentDoctorController,
+);
+
+/**
+ * Get Doctor By ID Route
+ * @access - public
+ * @method - GET
+ * @route - /api/v1/doctor/:doctorId
+ */
+router.get(
+  "/:doctorId",
+
+  param("doctorId")
+    .notEmpty()
+    .withMessage("Doctor ID is required")
+    .isMongoId()
+    .withMessage("Invalid Doctor ID"),
+
+  validationError,
+  getDoctorByIdController,
 );
 
 export default router;

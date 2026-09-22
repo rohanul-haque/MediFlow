@@ -7,8 +7,9 @@
 import asyncHandler from "@/utils/asyncHandler";
 
 /**
- * Application Module
+ * Application Modules
  */
+import { logger } from "@/lib/winston";
 import { HTTP_STATUS } from "@/utils/constants";
 import sendResponse from "@/utils/sendResponse";
 
@@ -32,6 +33,11 @@ const currentDoctorController = asyncHandler(
 
     // Call current doctor service
     const result = await currentDoctorService(userId!);
+
+    // Log current user
+    logger.info("Login doctor fetched successfully", {
+      userId: result._id,
+    });
 
     // Send success response
     sendResponse(res, {
