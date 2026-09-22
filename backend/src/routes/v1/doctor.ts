@@ -25,6 +25,7 @@ import validationError from "@/middlewares/validationError";
 /**
  * API Controllers
  */
+import changeDoctorStatusController from "@/controllers/v1/doctor/changeDoctorStatus.controller";
 import currentDoctorController from "@/controllers/v1/doctor/currentDoctor.controller";
 import deleteDoctorByIdController from "@/controllers/v1/doctor/deleteDoctorById.controller";
 import getDoctorByIdController from "@/controllers/v1/doctor/getDoctorById.controller";
@@ -130,6 +131,34 @@ router.delete(
 
   validationError,
   deleteDoctorByIdController,
+);
+
+/**
+ * Change Doctor Status Route
+ * @access - private
+ * @method - PATCH
+ * @route - /api/v1/doctor/:doctorId/change-status
+ */
+router.patch(
+  "/:doctorId/change-status",
+
+  authenticate,
+  authorize(["admin"]),
+
+  param("doctorId")
+    .notEmpty()
+    .withMessage("Doctor ID is required")
+    .isMongoId()
+    .withMessage("Invalid Doctor ID"),
+
+  body("status")
+    .notEmpty()
+    .withMessage("Status is required")
+    .isIn(["approved", "pending", "rejected"])
+    .withMessage("Status must be approved, pending or rejected"),
+
+  validationError,
+  changeDoctorStatusController,
 );
 
 export default router;

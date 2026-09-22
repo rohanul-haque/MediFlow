@@ -79,3 +79,12 @@ export type UpdateDoctorPayload = {
   payload: UpdateDoctorBody;
   file?: Express.Multer.File;
 };
+
+/**
+ * Type for change doctor status payload
+ * @param { MongoId } MongoId - The interface of the mongo id
+ */
+export type ChangeDoctorStatusPayload = {
+  doctorId: MongoId;
+  payload: { status: string };
+};
