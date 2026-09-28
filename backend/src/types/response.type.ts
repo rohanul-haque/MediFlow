@@ -82,3 +82,17 @@ export interface DoctorResponse {
   createdAt: Date;
   updatedAt: Date;
 }
+
+/**
+ * Type for get all approved doctors response with pagination metadata
+ * @param { DoctorResponse[] } doctors - The list of approved doctors
+ * @param { number } total - The total number of doctors matching filter
+ * @param { number } limit - The limit value
+ * @param { number } skip - The offset/skip value
+ */
+export interface GetAllApprovedDoctorsResponse {
+  doctors: DoctorResponse[];
+  total: number;
+  limit: number;
+  skip: number;
+}

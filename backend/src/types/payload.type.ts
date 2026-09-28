@@ -88,3 +88,15 @@ export type ChangeDoctorStatusPayload = {
   doctorId: MongoId;
   payload: { status: string };
 };
+
+/**
+ * Type for get all approved doctor payload
+ * @param { number } limit - The limit of the number of doctors to retrieve
+ * @param { number } offset - The offset of the number of doctors to retrieve
+ * @param { string } specialization - The specialization of the doctors to retrieve
+ */
+export type GetAllApprovedDoctorPayload = {
+  limit: number;
+  offset: number;
+  specialization?: string;
+};

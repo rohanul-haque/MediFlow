@@ -8,10 +8,10 @@
  * Third-Party Modules
  */
 import express from "express";
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 
 /**
- * Application Module
+ * Application Modules
  */
 import fileUpload from "@/lib/fileUpload";
 
@@ -28,13 +28,68 @@ import validationError from "@/middlewares/validationError";
 import changeDoctorStatusController from "@/controllers/v1/doctor/changeDoctorStatus.controller";
 import currentDoctorController from "@/controllers/v1/doctor/currentDoctor.controller";
 import deleteDoctorByIdController from "@/controllers/v1/doctor/deleteDoctorById.controller";
+import getAllDoctorByAdminController from "@/controllers/v1/doctor/getAllDoctorByAdmin.controller";
+import getAllApprovedDoctorController from "@/controllers/v1/doctor/getApprovedAllDoctors.controller";
 import getDoctorByIdController from "@/controllers/v1/doctor/getDoctorById.controller";
 import updateDoctorController from "@/controllers/v1/doctor/updateDoctor.controller";
 
 /**
  * Express Router Initialization
  */
+
 const router = express.Router();
+
+/**
+ * Get All Approved Doctor Route
+ * @access - public
+ * @method - GET
+ * @route - /api/v1/doctor/list
+ */
+
+router.get(
+  "/list",
+  query("limit")
+    .optional()
+    .isInt({ min: 1, max: 50 })
+    .withMessage("Limit must be between 1 and 50"),
+  query("offset")
+    .optional()
+    .isInt({ min: 0 })
+    .withMessage("Offset must be a positive integer"),
+  query("specialization")
+    .optional()
+    .isString()
+    .withMessage("Specialization must be a string"),
+  validationError,
+  getAllApprovedDoctorController,
+);
+
+/**
+ * Get All Doctor By Admin Route
+ * @access - private
+ * @method - GET
+ * @route - /api/v1/doctor/admin/list
+ */
+
+router.get(
+  "/admin/list",
+  authenticate,
+  authorize(["admin"]),
+  query("limit")
+    .optional()
+    .isInt({ min: 1, max: 50 })
+    .withMessage("Limit must be between 1 and 50"),
+  query("offset")
+    .optional()
+    .isInt({ min: 0 })
+    .withMessage("Offset must be a positive integer"),
+  query("specialization")
+    .optional()
+    .isString()
+    .withMessage("Specialization must be a string"),
+  validationError,
+  getAllDoctorByAdminController,
+);
 
 /**
  * Update Current Doctor Route
@@ -42,14 +97,12 @@ const router = express.Router();
  * @method - PATCH
  * @route - /api/v1/doctor/current
  */
+
 router.patch(
   "/current",
-
   authenticate,
   authorize(["doctor"]),
-
   fileUpload.single("avatar"),
-
   body("fullName")
     .optional()
     .isLength({ max: 20 })
@@ -72,7 +125,6 @@ router.patch(
     .withMessage("Consultation Fee must be a number"),
   body("availableSlots").optional(),
   body("bio").optional().isString().withMessage("Bio must be a string"),
-
   validationError,
   updateDoctorController,
 );
@@ -83,12 +135,11 @@ router.patch(
  * @method - GET
  * @route - /api/v1/doctor/current
  */
+
 router.get(
   "/current",
-
   authenticate,
   authorize(["doctor"]),
-
   currentDoctorController,
 );
 
@@ -98,15 +149,14 @@ router.get(
  * @method - GET
  * @route - /api/v1/doctor/:doctorId
  */
+
 router.get(
   "/:doctorId",
-
   param("doctorId")
     .notEmpty()
     .withMessage("Doctor ID is required")
     .isMongoId()
     .withMessage("Invalid Doctor ID"),
-
   validationError,
   getDoctorByIdController,
 );
@@ -117,18 +167,16 @@ router.get(
  * @method - DELETE
  * @route - /api/v1/doctor/:doctorId
  */
+
 router.delete(
   "/:doctorId",
-
   authenticate,
   authorize(["admin", "doctor"]),
-
   param("doctorId")
     .notEmpty()
     .withMessage("Doctor ID is required")
     .isMongoId()
     .withMessage("Invalid Doctor ID"),
-
   validationError,
   deleteDoctorByIdController,
 );
@@ -139,24 +187,21 @@ router.delete(
  * @method - PATCH
  * @route - /api/v1/doctor/:doctorId/change-status
  */
+
 router.patch(
   "/:doctorId/change-status",
-
   authenticate,
   authorize(["admin"]),
-
   param("doctorId")
     .notEmpty()
     .withMessage("Doctor ID is required")
     .isMongoId()
     .withMessage("Invalid Doctor ID"),
-
   body("status")
     .notEmpty()
     .withMessage("Status is required")
     .isIn(["approved", "pending", "rejected"])
     .withMessage("Status must be approved, pending or rejected"),
-
   validationError,
   changeDoctorStatusController,
 );

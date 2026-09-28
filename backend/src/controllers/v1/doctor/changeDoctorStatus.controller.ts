@@ -41,7 +41,7 @@ const changeDoctorStatusController = asyncHandler(
     });
 
     // Send success response
-    sendResponse(res, {
+    sendResponse(res, { 
       success: true,
       statusCode: HTTP_STATUS.OK,
       message: "Doctor status changed successfully!",
