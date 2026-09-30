@@ -4,12 +4,12 @@
  * @license Apache-2.0
  */
 
-/**
+/*
  * User Roles
  */
 export type Role = "admin" | "patient" | "doctor";
 
-/**
+/*
  * Auth Response
  */
 export interface AuthResponse {
@@ -18,14 +18,14 @@ export interface AuthResponse {
   role: Role;
 }
 
-/**
+/*
  * Forgot Password Response
  */
 export interface ForgotPassworResponse {
   otp: string;
 }
 
-/**
+/*
  * Error Codes
  */
 export type ErrorCode =
@@ -79,7 +79,7 @@ export type ErrorCode =
   // Email
   | "EMAIL_SEND_FAILED";
 
-/**
+/*
  * Field Validation Error
  */
 export type FieldValidationError = {
@@ -90,7 +90,7 @@ export type FieldValidationError = {
   msg: string;
 };
 
-/**
+/*
  * Validation Error
  */
 export type ValidationError = {
@@ -98,7 +98,7 @@ export type ValidationError = {
   errors: Record<string, FieldValidationError>;
 };
 
-/**
+/*
  * API Error Response
  */
 export type ErrorResponse = {
@@ -108,7 +108,7 @@ export type ErrorResponse = {
   stack?: string;
 };
 
-/**
+/*
  * API Response
  */
 export type ApiResponse<T = unknown> = {
@@ -117,3 +117,43 @@ export type ApiResponse<T = unknown> = {
   error?: ValidationError | ErrorResponse;
   data?: T;
 };
+
+/*
+ * Doctor Interface
+ */
+export interface Doctor {
+  _id: string;
+  user: AuthResponse & {
+    _id: string;
+  };
+  avatar: {
+    publicId: string;
+    url: string;
+    height: number | null;
+    width: number | null;
+  };
+  specialization: string[];
+  qualification: string;
+  experience: number;
+  consultationFee: number;
+  bio: string;
+  status: "approved" | "pending" | "rejected";
+  createdAt: string;
+  updatedAt: string;
+}
+
+/*
+ * Paginated Response
+ */
+export type PaginatedResponse<T, K extends string> = {
+  limit: number;
+  skip: number;
+  total: number;
+} & {
+  [key in K]: T[];
+};
+
+/*
+ * Doctor Response
+ */
+export type DoctorResponse = PaginatedResponse<Doctor, "data">;

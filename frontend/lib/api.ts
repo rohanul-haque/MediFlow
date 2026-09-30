@@ -17,7 +17,12 @@ import type { LoginFormValues } from "@/components/forms/LoginForm";
 import type { ResetPasswordFormValues } from "@/components/forms/ResetPasswordForm";
 import type { SignupFormValues } from "@/components/forms/SignupForm";
 import type { VerifyOtpFormValues } from "@/components/forms/VerifyOtpForm";
-import type { ApiResponse, AuthResponse, ForgotPassworResponse } from "@/types";
+import type {
+  ApiResponse,
+  AuthResponse,
+  Doctor,
+  ForgotPassworResponse,
+} from "@/types";
 
 /**
  * API Calls
@@ -97,6 +102,29 @@ export const resetPassword = async (
       newPassword: value.newPassword,
       otp,
     },
+  );
+
+  return response.data;
+};
+
+/**
+ * Get All Doctors API Call
+ * @param limit - Limit of doctors to fetch
+ * @param skip - Skip of doctors to fetch
+ * @param specialization - Specialization of doctors to fetch
+ * @returns All doctors
+ */
+export const doctors = async ({
+  limit = 20,
+  skip = 0,
+  specialization = "",
+}: {
+  limit?: number;
+  skip?: number;
+  specialization?: string;
+}) => {
+  const response = await mediFlowApi.get<ApiResponse<Doctor[]>>(
+    `/doctor/list?limit=${limit}&offset=${skip}&specialization=${specialization}`,
   );
 
   return response.data;

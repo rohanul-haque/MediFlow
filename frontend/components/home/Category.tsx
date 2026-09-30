@@ -19,9 +19,9 @@ import {
 import Link from "next/link";
 
 /**
- * Components
+ * Component
  */
-import Container from "./Container";
+import Container from "@/components/home/Container";
 
 /**
  * Content for Category

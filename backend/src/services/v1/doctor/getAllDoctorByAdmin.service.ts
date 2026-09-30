@@ -37,6 +37,7 @@ const getAllDoctorByAdminService = async ({
   // get all approved doctors and count total
   const [doctors, total] = await Promise.all([
     Doctor.find(filter)
+      .select("-availableSlots")
       .sort({ createdAt: -1 })
       .skip(offset)
       .limit(limit)
