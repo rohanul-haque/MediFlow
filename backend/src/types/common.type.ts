@@ -71,3 +71,14 @@ export interface AvailableSlot {
  * auth role
  */
 export type AuthRole = "admin" | "doctor" | "patient";
+
+/**
+ * Blood group
+ */
+export type BloodGroup =
+  "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+
+/**
+ * Gender
+ */
+export type Gender = "male" | "female";
