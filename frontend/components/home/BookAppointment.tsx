@@ -134,13 +134,15 @@ const BookAppointment: React.FC<BookAppointmentProps> = ({ doctorId }) => {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger>
-        <Button
-          size="lg"
-          className="mt-3 w-full bg-blue-600 text-white hover:bg-blue-700 md:w-auto"
-        >
-          Book Appointment
-        </Button>
+      <DialogTrigger
+        render={
+          <Button
+            size="lg"
+            className="mt-3 w-full bg-blue-600 text-white hover:bg-blue-700 md:w-auto"
+          />
+        }
+      >
+        Book Appointment
       </DialogTrigger>
 
       <DialogContent className="max-h-[90vh] w-[95vw] overflow-y-auto rounded-xl p-6 sm:max-w-200">
