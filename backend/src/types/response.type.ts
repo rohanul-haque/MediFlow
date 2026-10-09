@@ -96,3 +96,33 @@ export interface GetAllApprovedDoctorsResponse {
   limit: number;
   skip: number;
 }
+
+export interface RelatedDoctorsResponse {
+  doctors: DoctorResponse[];
+}
+
+/**
+ * Type for an appointment response
+ */
+export interface AppointmentResponse {
+  _id: MongoId;
+  patient: MongoId | UserProfileResponse;
+  doctor: MongoId | DoctorResponse;
+  date: string;
+  startTime: string;
+  endTime: string;
+  paymentMethod: string;
+  status: string;
+  prescription?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+/**
+ * Type for a generated available slot response
+ */
+export interface GeneratedSlotResponse {
+  startTime: string;
+  endTime: string;
+  status: "available" | "booked";
+}

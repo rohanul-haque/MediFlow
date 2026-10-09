@@ -21,7 +21,7 @@ import type { Doctor } from "@/types";
 const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
   return (
     <Link
-      href={`/doctor/${doctor._id}`}
+      href={`/doctors/${doctor?.user._id}`}
       className="overflow-hidden rounded-lg border border-gray-200 bg-white transition-all duration-300 ease-in-out hover:scale-103"
     >
       {/* ==================== Doctor Image ==================== */}
@@ -31,6 +31,7 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
           alt={doctor.user.fullName}
           fill
           loading="eager"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover"
         />
       </div>

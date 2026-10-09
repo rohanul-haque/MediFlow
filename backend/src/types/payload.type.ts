@@ -100,3 +100,15 @@ export type GetAllApprovedDoctorPayload = {
   offset: number;
   specialization?: string;
 };
+
+/**
+ * Type for create appointment payload
+ */
+export type CreateAppointmentPayload = {
+  patient: MongoId;
+  doctor: MongoId;
+  date: string;
+  startTime: string;
+  endTime: string;
+  paymentMethod: "online" | "cash";
+};

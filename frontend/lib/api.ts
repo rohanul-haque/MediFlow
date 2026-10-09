@@ -21,7 +21,10 @@ import type {
   ApiResponse,
   AuthResponse,
   Doctor,
+  DoctorResponse,
   ForgotPassworResponse,
+  GeneratedSlotResponse,
+  CreateAppointmentPayload,
 } from "@/types";
 
 /**
@@ -123,9 +126,45 @@ export const doctors = async ({
   skip?: number;
   specialization?: string;
 }) => {
-  const response = await mediFlowApi.get<ApiResponse<Doctor[]>>(
+  const response = await mediFlowApi.get<DoctorResponse>(
     `/doctor/list?limit=${limit}&offset=${skip}&specialization=${specialization}`,
   );
+
+  return response.data;
+};
+
+/**
+ * View Doctor Details API Call
+ * @param id - Doctor ID
+ * @returns Doctor details
+ */
+export const viewDoctorDetails = async ({ id }: { id: string }) => {
+  const response = await mediFlowApi.get<ApiResponse<Doctor>>(`/doctor/${id}`);
+
+  return response.data;
+};
+
+/**
+ * Get Available Slots API Call
+ * @param doctorId - Doctor ID
+ * @param date - Date in YYYY-MM-DD
+ * @returns Available slots
+ */
+export const getAvailableSlots = async (doctorId: string, date: string) => {
+  const response = await mediFlowApi.get<ApiResponse<GeneratedSlotResponse[]>>(
+    `/appointment/${doctorId}/available-slots?date=${date}`
+  );
+
+  return response.data;
+};
+
+/**
+ * Create Appointment API Call
+ * @param payload - Appointment payload
+ * @returns Success response
+ */
+export const createAppointment = async (payload: CreateAppointmentPayload) => {
+  const response = await mediFlowApi.post<ApiResponse>("/appointment", payload);
 
   return response.data;
 };

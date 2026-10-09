@@ -26,7 +26,7 @@ import Container from "@/components/home/Container";
 /**
  * Content for Category
  */
-const doctorCategories = [
+export const doctorCategories = [
   {
     id: 1,
     name: "Cardiology",

@@ -143,17 +143,35 @@ export interface Doctor {
 }
 
 /*
- * Paginated Response
+ * Paginated API Response
  */
-export type PaginatedResponse<T, K extends string> = {
+export type PaginatedApiResponse<T> = ApiResponse<T[]> & {
   limit: number;
   skip: number;
   total: number;
-} & {
-  [key in K]: T[];
 };
 
 /*
  * Doctor Response
  */
-export type DoctorResponse = PaginatedResponse<Doctor, "data">;
+export type DoctorResponse = PaginatedApiResponse<Doctor>;
+
+/*
+ * Generated Slot Response
+ */
+export interface GeneratedSlotResponse {
+  startTime: string;
+  endTime: string;
+  status: "available" | "booked";
+}
+
+/*
+ * Create Appointment Payload
+ */
+export interface CreateAppointmentPayload {
+  doctor: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  paymentMethod: "online" | "cash";
+}

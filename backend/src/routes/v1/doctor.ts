@@ -31,6 +31,7 @@ import deleteDoctorByIdController from "@/controllers/v1/doctor/deleteDoctorById
 import getAllDoctorByAdminController from "@/controllers/v1/doctor/getAllDoctorByAdmin.controller";
 import getAllApprovedDoctorController from "@/controllers/v1/doctor/getApprovedAllDoctors.controller";
 import getDoctorByIdController from "@/controllers/v1/doctor/getDoctorById.controller";
+import relatedDoctorsController from "@/controllers/v1/doctor/relatedDoctors.controller";
 import updateDoctorController from "@/controllers/v1/doctor/updateDoctor.controller";
 
 /**
@@ -62,6 +63,24 @@ router.get(
     .withMessage("Specialization must be a string"),
   validationError,
   getAllApprovedDoctorController,
+);
+
+/**
+ * Get Related Doctors Route
+ * @access - public
+ * @method - GET
+ * @route - /api/v1/doctor/:doctorId/related
+ */
+
+router.get(
+  "/:doctorId/related",
+  param("doctorId")
+    .notEmpty()
+    .withMessage("Doctor ID is required")
+    .isMongoId()
+    .withMessage("Invalid Doctor ID"),
+  validationError,
+  relatedDoctorsController,
 );
 
 /**

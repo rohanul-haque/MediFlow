@@ -19,6 +19,7 @@ import doctorRoute from "@/routes/v1/doctor";
  * API Controller
  */
 import healthRoute from "@/routes/v1/health";
+import appointmentRoute from "@/routes/v1/appointment";
 
 /**
  * Express Router Initialization
@@ -31,5 +32,6 @@ const router = express.Router();
 router.use("/health", healthRoute);
 router.use("/auth", authRoute);
 router.use("/doctor", doctorRoute);
+router.use("/appointment", appointmentRoute);
 
 export default router;
